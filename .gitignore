@@ -33,7 +33,6 @@ Desktop.ini
 # OSX
 ######################
 
-.DS_Store
 .svn
 
 # Thumbnails
@@ -47,7 +46,6 @@ Desktop.ini
 # NetBeans
 ######################
 nbproject/
-build/
 nbbuild/
 dist/
 nbdist/
@@ -94,3 +92,4 @@ local.properties
 
 # Testing environment specific
 derby.log
+!.idea/
