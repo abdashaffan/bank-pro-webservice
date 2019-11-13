@@ -23,13 +23,13 @@ public class WSBankDB {
         }
     }
 
-    private int getNasabahAccountById(int id) throws  SQLException {
-        String query = "SELECT account_num FROM nasabah WHERE id = ?";
+    private int getVirtualAccountById(int id) throws  SQLException {
+        String query = "SELECT virtual_account_num FROM virtual_account WHERE id = ?";
         stmt = connection.prepareStatement(query);
         stmt.setInt(1, id);
         ResultSet result = stmt.executeQuery();
         if (result.next()){
-            return result.getInt("account_num");
+            return result.getInt("virtual_account_num");
         }
         return -1;
     }
@@ -43,10 +43,8 @@ public class WSBankDB {
     }
 
     private int createVirtualAccountNumber(int accNum) throws SQLException {
-        //prekondisi: account_num udah valid dan udah ada di db sebelumnya
-        int maxAccountNum = 999999;
-        int minAccountNum = 100001;
-        int virtualAccNum  = (int)((Math.random()*((maxAccountNum-minAccountNum)+1))+minAccountNum);
+        //prekondisi: account_num UDAH VALID (udah ada di db sebelumnya)
+        int virtualAccNum = createVirtualAccNum();
         String query = "INSERT INTO virtual_account (virtual_account_num, account_num) VALUES (?, ?)";
         stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         stmt.setInt(1, virtualAccNum);
@@ -57,7 +55,9 @@ public class WSBankDB {
         }
         try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
             if (generatedKeys.next()) {
-                return generatedKeys.getInt(1);
+
+                int id = generatedKeys.getInt(1);
+                return getVirtualAccountById(id);
             }
             else {
                 throw new SQLException("Creating user failed, no ID obtained.");
@@ -65,17 +65,10 @@ public class WSBankDB {
         }
     }
 
-//    Buat tester aja
-//    public static void main(String[] args) throws SQLException {
-//        WSBankDB db = new WSBankDB("jdbc:mysql://localhost:3306/ws_bank?serverTimezone=UTC");
-//
-//        System.out.println( db.getNasabahAccountById(1));
-//        System.out.println( db.getNasabahAccountById(2));
-//        System.out.println( db.getNasabahAccountById(3));
-//        System.out.println( db.isValidNasabah(10001));
-//        System.out.println( db.isValidNasabah(99999));
-//        System.out.println( db.createVirtualAccountNumber(10001));
-//        System.out.println( db.createVirtualAccountNumber(10002));
-//    }
+    private int createVirtualAccNum() {
+        int maxAccountNum = 999999;
+        int minAccountNum = 100001;
+        return (int)((Math.random()*((maxAccountNum-minAccountNum)+1))+minAccountNum);
+    }
 
 }
