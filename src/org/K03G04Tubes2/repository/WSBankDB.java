@@ -3,38 +3,24 @@ package org.K03G04Tubes2.repository;
 import java.sql.*;
 
 public class WSBankDB {
-//    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String USER = "abda";
-    private static final String PASS = "abda";
+    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/ws_bank?serverTimezone=UTC";
+    private static final String DB_USER = "abda";
+    private static final String DB_PASS = "abda";
     private static Connection connection;
     private static PreparedStatement stmt;
-//    private static final String DB_URL = "jdbc:mysql://localhost:3306/ws_bank?serverTimezone=UTC";
+
 
     public WSBankDB() {
-    }
-
-    public WSBankDB(String mySQLStringURI) {
         try {
-            connection = DriverManager.getConnection(mySQLStringURI, USER, PASS);
-            System.out.println("Connected to Database URL:" + mySQLStringURI);
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+            System.out.println("Connected to Database URL:" + DB_URL);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private int getVirtualAccountById(int id) throws  SQLException {
-        String query = "SELECT virtual_account_num FROM virtual_account WHERE id = ?";
-        stmt = connection.prepareStatement(query);
-        stmt.setInt(1, id);
-        ResultSet result = stmt.executeQuery();
-        if (result.next()){
-            return result.getInt("virtual_account_num");
-        }
-        return -1;
-    }
-
-    private boolean isValidNasabah(int accNum) throws SQLException {
+    public boolean isValidAccountNum(int accNum) throws SQLException {
         String query = "SELECT * FROM nasabah WHERE account_num = ?";
         stmt = connection.prepareStatement(query);
         stmt.setInt(1, accNum);
@@ -42,9 +28,9 @@ public class WSBankDB {
         return result.next();
     }
 
-    private int createVirtualAccountNumber(int accNum) throws SQLException {
-        //prekondisi: account_num UDAH VALID (udah ada di db sebelumnya)
-        int virtualAccNum = createVirtualAccNum();
+    public int createVirtualAccountNumber(int accNum) throws SQLException {
+        //prekondisi: accNum UDAH VALID (udah ada di db sebelumnya)
+        int virtualAccNum = generateVirtualAccNum();
         String query = "INSERT INTO virtual_account (virtual_account_num, account_num) VALUES (?, ?)";
         stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         stmt.setInt(1, virtualAccNum);
@@ -65,10 +51,20 @@ public class WSBankDB {
         }
     }
 
-    private int createVirtualAccNum() {
-        int maxAccountNum = 999999;
-        int minAccountNum = 100001;
-        return (int)((Math.random()*((maxAccountNum-minAccountNum)+1))+minAccountNum);
+    private int getVirtualAccountById(int id) throws  SQLException {
+        String query = "SELECT virtual_account_num FROM virtual_account WHERE id = ?";
+        stmt = connection.prepareStatement(query);
+        stmt.setInt(1, id);
+        ResultSet result = stmt.executeQuery();
+        if (result.next()){
+            return result.getInt("virtual_account_num");
+        }
+        return -1;
     }
 
+    private int generateVirtualAccNum() {
+        int maxVAccountNum = 999999;
+        int minVAccountNum = 100001;
+        return (int)((Math.random()*((maxVAccountNum-minVAccountNum)+1))+minVAccountNum);
+    }
 }

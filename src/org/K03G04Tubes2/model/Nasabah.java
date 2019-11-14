@@ -6,15 +6,17 @@ public class Nasabah {
     private String name;
     private String accountNumber;
     private int balance;
+    private ArrayList<Integer> virtualAccounts;
     private ArrayList<Transaction> transactionHistory;
 
     public Nasabah() {
     }
-    public Nasabah (String name, String accountNumber, int balance,ArrayList<Transaction> transactionHistory) {
+    public Nasabah (String name, String accountNumber) {
         this.name = name;
         this.accountNumber = accountNumber;
-        this.balance = balance;
-        this.transactionHistory = new ArrayList<>(transactionHistory);
+        this.balance = 0;
+        this.virtualAccounts = new ArrayList<>();
+        this.transactionHistory = new ArrayList<>();
     }
 
     public String getName() {
@@ -45,8 +47,15 @@ public class Nasabah {
         return this.transactionHistory;
     }
 
+    public ArrayList<Integer> getVirtualAccounts() {
+        return this.virtualAccounts;
+    }
+
     public void addTransactionHistory(Transaction t) {
         this.transactionHistory.add(t);
+    }
+    public void addTransactionHistory(Integer va) {
+        this.virtualAccounts.add(va);
 
     }
 }
