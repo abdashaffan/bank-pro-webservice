@@ -3,6 +3,7 @@ package org.K03G04Tubes2.repository;
 import java.sql.*;
 
 public class WSBankDB {
+//    private static final String PUBLIC_EC2_DNS = "ec2-52-23-241-205.compute-1.amazonaws.com";
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/ws_bank?serverTimezone=UTC";
     private static final String DB_USER = "abda";
     private static final String DB_PASS = "abda";
