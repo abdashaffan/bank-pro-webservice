@@ -5,8 +5,8 @@ import java.sql.*;
 public class WSBankDB {
 //    private static final String PUBLIC_EC2_DNS = "ec2-52-23-241-205.compute-1.amazonaws.com";
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/ws_bank?serverTimezone=UTC";
-    private static final String DB_USER = "abda";
-    private static final String DB_PASS = "abda";
+    private static final String DB_USER = "root";
+    private static final String DB_PASS = "";
     private static Connection connection;
     private static PreparedStatement stmt;
 
@@ -24,6 +24,19 @@ public class WSBankDB {
     public boolean isValidAccountNum(int accNum){
         try {
             String query = "SELECT * FROM nasabah WHERE account_num = ?";
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, accNum);
+            ResultSet result = stmt.executeQuery();
+            return result.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean isValidVirtualAccountNum(int accNum){
+        try {
+            String query = "SELECT * FROM virtual_account WHERE virtual_account_num = ?";
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, accNum);
             ResultSet result = stmt.executeQuery();
@@ -78,9 +91,86 @@ public class WSBankDB {
         }
     }
 
+    public int getAccountNumberByVA(int acc_number)  {
+        try {
+            String query = "SELECT account_num FROM virtual_account WHERE virtual_account_num = ?";
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, acc_number);
+            ResultSet result = stmt.executeQuery();
+            if (result.next()){
+                return result.getInt("account_num");
+            }
+            return -1;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return -999;
+        }
+    }
+
     private int generateVirtualAccNum() {
         int maxVAccountNum = 999999;
         int minVAccountNum = 100001;
         return (int)((Math.random()*((maxVAccountNum-minVAccountNum)+1))+minVAccountNum);
     }
+
+    public int createTransaksiAccountNum(int acc_num_pengirim, int acc_numorva_penerima, int jlh_uang){
+        try {
+            //Query untuk data balance pengirim
+            String query = "SELECT balance FROM nasabah WHERE account_num = ?";
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, acc_num_pengirim);
+            ResultSet result = stmt.executeQuery();
+
+            if (result.next()){
+                //Simpan data Balance Pengirim
+                int balance_pengirim = result.getInt("balance");
+
+                //Cek saldo pengirim cukup atau tidak
+                if (balance_pengirim >= jlh_uang) {
+                    //Query untuk data balance penerima
+                    query = "SELECT balance FROM nasabah WHERE account_num = ?";
+                    stmt = connection.prepareStatement(query);
+                    stmt.setInt(1, acc_num_pengirim);
+                    result = stmt.executeQuery();
+
+                    if (result.next()){
+                        //Simpan data Balance Pengirim
+                        int balance_penerima = result.getInt("balance");
+
+                        String query1 = "UPDATE nasabah SET balance = ? WHERE account_num = ?";
+                        String query2 = "UPDATE nasabah SET balance = ? WHERE account_num = ?";
+                        int new_balance_pengirim = balance_pengirim - jlh_uang;
+                        int new_balance_penerima = balance_penerima + jlh_uang;
+
+                        String query_transaksi = "INSERT INTO transaksi(sender, receiver, amount) values(?, ?, ?)";
+
+                        stmt = connection.prepareStatement(query1);
+                        stmt.setInt(1,new_balance_pengirim);
+                        stmt.setInt(2,acc_num_pengirim);
+                        result = stmt.executeQuery();
+
+                        stmt = connection.prepareStatement(query2);
+                        stmt.setInt(1,new_balance_penerima);
+                        stmt.setInt(2,acc_numorva_penerima);
+                        result = stmt.executeQuery();
+
+                        stmt = connection.prepareStatement(query_transaksi);
+                        stmt.setInt(1,acc_num_pengirim);
+                        stmt.setInt(2,acc_numorva_penerima);
+                        stmt.setInt(3,jlh_uang);
+                        result = stmt.executeQuery();
+
+                        return 1; // query berhasil
+                    }
+                }
+            }
+            return -999; //query error
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 }

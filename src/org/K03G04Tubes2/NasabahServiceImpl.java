@@ -28,4 +28,16 @@ public class NasabahServiceImpl implements NasabahService{
         return db.createVirtualAccountNumber(accNum);
     }
 
+    @Override
+    public int createTransaksiTransfer( int acc_num_pengirim, int acc_numorva_penerima, int jlh_uang){ //layanan3
+        if(db.isValidAccountNum(acc_num_pengirim) && (db.isValidAccountNum(acc_numorva_penerima) || (db.getAccountNumberByVA(acc_numorva_penerima) == acc_numorva_penerima) ) ){
+            if (db.createTransaksiAccountNum(acc_num_pengirim, acc_numorva_penerima, jlh_uang) == 1){
+                return 1; //Transaksi Succes
+            } else {
+                return -1; //Transaksi gagal atau saldo tidak cukup
+            }
+        } else {
+            return -999; //Account number pengirim atau penerima salah
+        }
+    }
 }
