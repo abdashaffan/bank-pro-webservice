@@ -93,4 +93,5 @@ local.properties
 # Testing environment specific
 derby.log
 /.idea/
+/flow/
 
