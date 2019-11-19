@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Nasabah {
     private String name;
-    private String accountNumber;
+    private int accountNumber;
     private int balance;
     private ArrayList<Integer> virtualAccounts;
     private ArrayList<Transaction> transactionHistory;
 
     public Nasabah() {
     }
-    public Nasabah (String name, String accountNumber) {
+    public Nasabah (String name, int accountNumber) {
         this.name = name;
         this.accountNumber = accountNumber;
         this.balance = 0;
@@ -27,11 +27,11 @@ public class Nasabah {
         this.name = name;
     }
 
-    public String getAccountNumber() {
+    public int getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(String accountNumber) {
+    public void setAccountNumber(int accountNumber) {
         this.accountNumber = accountNumber;
     }
 
