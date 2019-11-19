@@ -29,11 +29,25 @@ public class NasabahServiceImpl implements NasabahService{
     }
 
     @Override
-    public void createTransaksiTransfer( int acc_num_pengirim, int acc_numorva_penerima, int jlh_uang){ //layanan3
-        if(db.isValidAccountNum(acc_num_pengirim) && (db.isValidAccountNum(acc_numorva_penerima) || (db.getAccountNumberByVA(acc_numorva_penerima) == acc_numorva_penerima) ) ){
-            db.createTransaksiAccountNum(acc_num_pengirim, acc_numorva_penerima, jlh_uang);
+    public String createTransaksiTransfer( int acc_num_pengirim, int acc_numorva_penerima, int jlh_uang) { //layanan3
+        if(db.isValidAccountNum(acc_num_pengirim) && (db.isValidAccountNum(acc_numorva_penerima) || (db.getAccountNumberByVA(acc_numorva_penerima) == acc_numorva_penerima) ) ) {
+            if (db.cekSaldoMencukupi(acc_num_pengirim, jlh_uang) == 1){
+                if (db.createTransaksiAccount(acc_num_pengirim, acc_numorva_penerima, jlh_uang) == 1) {
+                    return "Transaksi succes";
+                } else {
+                    return "Proses transaksi error";
+                }
+            } else {
+                 return "Saldo tidak cukup"; //Saldo tidak cukup
+            }
         } else {
-            System.out.println("Account number pengirim atau penerima salah"); //Account number pengirim atau penerima salah
+            return "Account number pengirim atau penerima salah"; //Account number pengirim atau penerima salah
         }
     }
 }
+
+
+
+
+
+
