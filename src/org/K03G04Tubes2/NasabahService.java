@@ -26,4 +26,9 @@ public interface NasabahService {
             @WebParam(name="end_date")String end_date
     );// layanan 5
 
+    int getNasabahRealAccountByName(@WebParam(name = "username") String username);
+
+    //layanan 3
+    @WebMethod
+    String createTransaksiTransfer(@WebParam(name = "account_num_pengirim") int acc_num_pengirim, @WebParam(name = "account_numorva_penerima") int acc_numorva_pwnwrima, @WebParam(name = "jlh_uang") int jlh_uang);
 }

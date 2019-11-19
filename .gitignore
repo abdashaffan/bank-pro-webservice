@@ -5,7 +5,7 @@ target/
 libs/
 tmp/
 node_modules/
-out/
+out/production
 
 # OS Files #
 .DS_Store
@@ -93,4 +93,5 @@ local.properties
 # Testing environment specific
 derby.log
 /.idea/
+/flow/
 
