@@ -5,7 +5,7 @@ target/
 libs/
 tmp/
 node_modules/
-out/
+out/production
 
 # OS Files #
 .DS_Store

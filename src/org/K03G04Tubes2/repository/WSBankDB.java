@@ -5,8 +5,8 @@ import java.sql.*;
 public class WSBankDB {
 //    private static final String PUBLIC_EC2_DNS = "ec2-52-23-241-205.compute-1.amazonaws.com";
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/ws_bank?serverTimezone=UTC";
-    private static final String DB_USER = "abda";
-    private static final String DB_PASS = "abda";
+    private static final String DB_USER = "tubes2";
+    private static final String DB_PASS = "tubes2";
     private static Connection connection;
     private static PreparedStatement stmt;
 
@@ -61,6 +61,23 @@ public class WSBankDB {
         }
     }
 
+    public int getNasabahNumByName(String username) {
+        try {
+            String query = "SELECT account_num from nasabah WHERE name = ?";
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, username);
+            ResultSet result = stmt.executeQuery();
+            if (result.next()) {
+                return result.getInt("account_num");
+            }
+            return -1; //if not found
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return -999;
+        }
+    }
+
     private int getVirtualAccountById(int id)  {
         try {
             String query = "SELECT virtual_account_num FROM virtual_account WHERE id = ?";
@@ -83,4 +100,5 @@ public class WSBankDB {
         int minVAccountNum = 100001;
         return (int)((Math.random()*((maxVAccountNum-minVAccountNum)+1))+minVAccountNum);
     }
+
 }

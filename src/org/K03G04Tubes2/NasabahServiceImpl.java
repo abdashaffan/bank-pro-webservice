@@ -28,4 +28,10 @@ public class NasabahServiceImpl implements NasabahService{
         return db.createVirtualAccountNumber(accNum);
     }
 
+    @Override
+    public int getNasabahRealAccountByName(String username) {
+        if (username == "") return -1;
+        return db.getNasabahNumByName(username);
+    }
+
 }
