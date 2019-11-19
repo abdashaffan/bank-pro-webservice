@@ -50,7 +50,7 @@ public class NasabahServiceImpl implements NasabahService{
                     } else {
                         return "Saldo tidak cukup"; //Saldo tidak cukup
                     }
-                } else if (db.getAccountNumberByVA(acc_numorva_penerima) == acc_numorva_penerima) {
+                } else if (db.isValidAccountNum(db.getAccountNumberByVA(acc_numorva_penerima))) {
                     if (db.cekSaldoMencukupi(acc_num_pengirim, jlh_uang) == 1) {
                         if (db.createTransaksiVA(acc_num_pengirim, acc_numorva_penerima, jlh_uang) == 1) {
                             return "Transaksi succes";
@@ -64,7 +64,7 @@ public class NasabahServiceImpl implements NasabahService{
                     return "account penerima salah";
                 }
             } else {
-                return "Account number pengirim atau penerima salah"; //Account number pengirim atau penerima salah
+                return "Account number pengirim salah"; //Account number pengirim atau penerima salah
             }
         }
     }
