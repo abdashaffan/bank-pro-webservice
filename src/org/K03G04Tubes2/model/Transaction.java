@@ -1,18 +1,24 @@
 package org.K03G04Tubes2.model;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "Person")
 public class Transaction {
     private Date date;
     private String transactionType;
     private int amount;
-    private String sender;
-    private String receiver;
+    private int sender;
+    private int receiver;
 
     public Transaction() {
 
     }
 
-    public Transaction(String transactionType, int amount, String sender, String receiver, Date date) {
+    public Transaction(String transactionType, int amount, int sender, int receiver, Date date) {
         this.transactionType = transactionType;
         this.amount = amount;
         this.sender = sender;
@@ -32,11 +38,11 @@ public class Transaction {
         return amount;
     }
 
-    public String getSender() {
+    public int getSender() {
         return sender;
     }
 
-    public String getReceiver() {
+    public int getReceiver() {
         return receiver;
     }
 }
