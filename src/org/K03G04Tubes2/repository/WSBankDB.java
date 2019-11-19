@@ -182,6 +182,23 @@ public class WSBankDB {
     }
 
     public boolean checkTransaction(int accNum, int nominal, String begin_date, String end_date){
-        return true;
+        try {
+            String sql = "SELECT * FROM transaksi WHERE receiver=? AND amount=? AND date>=? AND date<=?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1,accNum);
+            stmt.setInt(2,nominal);
+            stmt.setString(3,begin_date);
+            stmt.setString(4,end_date);
+
+            ResultSet result = stmt.executeQuery();
+            return result.next();
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }
