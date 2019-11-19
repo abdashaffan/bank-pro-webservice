@@ -13,4 +13,6 @@ public interface NasabahService {
     @WebMethod
     int createNasabahVirtualAccount(@WebParam(name = "account_num") int accNum); //layanan4
 
+    @WebMethod
+    int getNasabahRealAccountByName(@WebParam(name = "username") String username);
 }
