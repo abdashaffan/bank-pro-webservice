@@ -1,6 +1,7 @@
 package org.K03G04Tubes2.repository;
 
 import org.K03G04Tubes2.model.Nasabah;
+import java.util.ArrayList;
 
 import java.sql.*;
 
@@ -39,7 +40,12 @@ public class WSBankDB {
             } else {
                 Nasabah n = new Nasabah(result.getString("name"),accNum);
                 n.setBalance(result.getInt("balance"));
-                System.out.println(n.getName());
+                // Get va list
+                ArrayList<Integer> va_list = getVirtualAccountByUser(accNum);
+                // Iterate over list
+                for(Integer i:va_list){
+                    n.addVirtualAccount(i);
+                }
                 return n;
             }
         } catch (SQLException e){
@@ -114,5 +120,26 @@ public class WSBankDB {
         int maxVAccountNum = 999999;
         int minVAccountNum = 100001;
         return (int)((Math.random()*((maxVAccountNum-minVAccountNum)+1))+minVAccountNum);
+    }
+
+    private ArrayList<Integer> getVirtualAccountByUser(int accNum){
+        ArrayList<Integer> va_list = new ArrayList<Integer>();
+        try {
+            String query = "SELECT id FROM virtual_account WHERE account_num=?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(1,accNum);
+            ResultSet result_set = stmt.executeQuery();
+            while(result_set.next()){
+                va_list.add(result_set.getInt("id"));
+            }
+            return va_list;
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }
