@@ -18,6 +18,12 @@ public interface NasabahService {
     @WebMethod
     int createNasabahVirtualAccount(@WebParam(name = "account_num") int accNum); //layanan4
 
-
+    @WebMethod
+    boolean isTransactionExist(
+            @WebParam(name="to_account")int toAcc,
+            @WebParam(name="nominal")int nominal,
+            @WebParam(name="begin_date")String begin_date,
+            @WebParam(name="end_date")String end_date
+    );// layanan 5
 
 }

@@ -35,4 +35,9 @@ public class NasabahServiceImpl implements NasabahService{
         return db.createVirtualAccountNumber(accNum);
     }
 
+    @Override
+    public boolean isTransactionExist(int toAcc,int nominal, String begin_date, String end_date){
+        return true;
+    }
+
 }
