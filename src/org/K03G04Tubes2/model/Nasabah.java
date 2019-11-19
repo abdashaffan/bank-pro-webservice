@@ -1,5 +1,7 @@
 package org.K03G04Tubes2.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 
@@ -45,10 +47,14 @@ public class Nasabah {
         this.balance = balance;
     }
 
+    @XmlElementWrapper(name="transactions_history")
+    @XmlElement(name="transaction")
     public ArrayList<Transaction> getTransactionHistory() {
         return this.transactionHistory;
     }
 
+    @XmlElementWrapper(name="virtual_accounts")
+    @XmlElement(name="account")
     public ArrayList<Integer> getVirtualAccounts() {
         return this.virtualAccounts;
     }
@@ -56,7 +62,7 @@ public class Nasabah {
     public void addTransactionHistory(Transaction t) {
         this.transactionHistory.add(t);
     }
-    public void addTransactionHistory(Integer va) {
+    public void addVirtualAccount(Integer va) {
         this.virtualAccounts.add(va);
 
     }
