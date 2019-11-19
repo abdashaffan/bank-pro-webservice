@@ -180,4 +180,8 @@ public class WSBankDB {
             return null;
         }
     }
+
+    public boolean checkTransaction(int accNum, int nominal, String begin_date, String end_date){
+        return true;
+    }
 }

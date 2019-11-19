@@ -37,7 +37,7 @@ public class NasabahServiceImpl implements NasabahService{
 
     @Override
     public boolean isTransactionExist(int toAcc,int nominal, String begin_date, String end_date){
-        return true;
+        return db.checkTransaction(toAcc, nominal, begin_date, end_date);
     }
 
 }
