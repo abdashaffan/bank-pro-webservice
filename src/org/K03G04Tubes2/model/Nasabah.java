@@ -1,7 +1,9 @@
 package org.K03G04Tubes2.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 
+@XmlRootElement
 public class Nasabah {
     private String name;
     private int accountNumber;
