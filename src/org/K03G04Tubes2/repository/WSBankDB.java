@@ -1,9 +1,10 @@
 package org.K03G04Tubes2.repository;
 
 import org.K03G04Tubes2.model.Nasabah;
-import java.util.ArrayList;
+import org.K03G04Tubes2.model.Transaction;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class WSBankDB {
 //    private static final String PUBLIC_EC2_DNS = "ec2-52-23-241-205.compute-1.amazonaws.com";
@@ -45,6 +46,13 @@ public class WSBankDB {
                 // Iterate over list
                 for(Integer i:va_list){
                     n.addVirtualAccount(i);
+                }
+
+                // Get transaction list
+                ArrayList<Transaction> transaction_list = getTransactionsByUser(accNum);
+                //Iterate over the list
+                for (Transaction t : transaction_list){
+                    n.addTransactionHistory(t);
                 }
                 return n;
             }
@@ -134,6 +142,36 @@ public class WSBankDB {
             }
             return va_list;
 
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private ArrayList<Transaction> getTransactionsByUser(int accNum){
+        ArrayList<Transaction> tra_list = new ArrayList<Transaction>();
+        Transaction ta;
+        try{
+            String query = "SELECT *, (CASE WHEN sender=? THEN 'debit' ELSE 'kredit' END) AS type FROM transaksi WHERE sender=? OR receiver=?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(1,accNum);
+            stmt.setInt(2,accNum);
+            stmt.setInt(3,accNum);
+            ResultSet result = stmt.executeQuery();
+            while(result.next()){
+                System.out.println("HIT !");
+                ta = new Transaction(result.getString("type"),
+                        result.getInt("amount"),
+                        result.getInt("sender"),
+                        result.getInt("receiver"),
+                        result.getDate("date")
+                        );
+                tra_list.add(ta);
+            };
+            return tra_list;
         } catch (SQLException e){
             e.printStackTrace();
             return null;
