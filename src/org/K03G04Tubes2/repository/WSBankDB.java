@@ -114,7 +114,11 @@ public class WSBankDB {
         return (int)((Math.random()*((maxVAccountNum-minVAccountNum)+1))+minVAccountNum);
     }
 
-    public int createTransaksiAccountNum(int acc_num_pengirim, int acc_numorva_penerima, int jlh_uang){
+    public int cekSaldoMencukupi(int acc_num, int jlh_uang){
+        
+    }
+
+    public void createTransaksiAccountNum(int acc_num_pengirim, int acc_numorva_penerima, int jlh_uang){
         try {
             //Query untuk data balance pengirim
             String query = "SELECT balance FROM nasabah WHERE account_num = ?";
@@ -161,7 +165,7 @@ public class WSBankDB {
                         stmt.setInt(3,jlh_uang);
                         result = stmt.executeQuery();
 
-                        return 1; // query berhasil
+                        System.out.println("Success"); //Transaksi Succes
                     }
                 }
             }

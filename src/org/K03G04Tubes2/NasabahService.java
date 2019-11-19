@@ -15,6 +15,6 @@ public interface NasabahService {
 
     //layanan 3
     @WebMethod
-    int createTransaksiTransfer(@WebParam(name = "account_num_pengirim") int acc_num_pengirim, @WebParam(name = "account_numorva_penerima") int acc_numorva_pwnwrima, @WebParam(name = "jlh_uang") int jlh_uang);
+    void createTransaksiTransfer(@WebParam(name = "account_num_pengirim") int acc_num_pengirim, @WebParam(name = "account_numorva_penerima") int acc_numorva_pwnwrima, @WebParam(name = "jlh_uang") int jlh_uang);
 
 }
