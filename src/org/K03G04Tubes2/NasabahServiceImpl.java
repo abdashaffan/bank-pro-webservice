@@ -1,5 +1,6 @@
 package org.K03G04Tubes2;
 
+import org.K03G04Tubes2.model.Nasabah;
 import org.K03G04Tubes2.repository.WSBankDB;
 
 import javax.jws.WebService;
@@ -21,6 +22,12 @@ public class NasabahServiceImpl implements NasabahService{
     }
 
     @Override
+    public Nasabah getNasabah(int accNum){ //layanan 2
+
+       return db.getNasabah(accNum);
+
+    }
+    @Override
     public int createNasabahVirtualAccount( int accNum){ //layanan4
         if (!db.isValidAccountNum(accNum)) {
             return -1;
@@ -29,6 +36,8 @@ public class NasabahServiceImpl implements NasabahService{
     }
 
     @Override
+    public boolean isTransactionExist(int toAcc,int nominal, String begin_date, String end_date){
+        return db.checkTransaction(toAcc, nominal, begin_date, end_date);
     public int getNasabahRealAccountByName(String username) {
         if (username == "") return -1;
         return db.getNasabahNumByName(username);

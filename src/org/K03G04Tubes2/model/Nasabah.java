@@ -1,17 +1,21 @@
 package org.K03G04Tubes2.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 
+@XmlRootElement
 public class Nasabah {
     private String name;
-    private String accountNumber;
+    private int accountNumber;
     private int balance;
     private ArrayList<Integer> virtualAccounts;
     private ArrayList<Transaction> transactionHistory;
 
     public Nasabah() {
     }
-    public Nasabah (String name, String accountNumber) {
+    public Nasabah (String name, int accountNumber) {
         this.name = name;
         this.accountNumber = accountNumber;
         this.balance = 0;
@@ -27,11 +31,11 @@ public class Nasabah {
         this.name = name;
     }
 
-    public String getAccountNumber() {
+    public int getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(String accountNumber) {
+    public void setAccountNumber(int accountNumber) {
         this.accountNumber = accountNumber;
     }
 
@@ -43,10 +47,14 @@ public class Nasabah {
         this.balance = balance;
     }
 
+    @XmlElementWrapper(name="transactions_history")
+    @XmlElement(name="transaction")
     public ArrayList<Transaction> getTransactionHistory() {
         return this.transactionHistory;
     }
 
+    @XmlElementWrapper(name="virtual_accounts")
+    @XmlElement(name="account")
     public ArrayList<Integer> getVirtualAccounts() {
         return this.virtualAccounts;
     }
@@ -54,7 +62,7 @@ public class Nasabah {
     public void addTransactionHistory(Transaction t) {
         this.transactionHistory.add(t);
     }
-    public void addTransactionHistory(Integer va) {
+    public void addVirtualAccount(Integer va) {
         this.virtualAccounts.add(va);
 
     }
