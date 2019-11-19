@@ -38,8 +38,9 @@ public class NasabahServiceImpl implements NasabahService{
     @Override
     public boolean isTransactionExist(int toAcc,int nominal, String begin_date, String end_date){
         return db.checkTransaction(toAcc, nominal, begin_date, end_date);
+    }
     public int getNasabahRealAccountByName(String username) {
-        if (username == "") return -1;
+        if (username.equals("")) return -1;
         return db.getNasabahNumByName(username);
     }
 
