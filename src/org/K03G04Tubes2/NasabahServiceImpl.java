@@ -46,8 +46,8 @@ public class NasabahServiceImpl implements NasabahService{
 
     @Override
     public String createTransaksiTransfer(int acc_num_pengirim, int acc_numorva_penerima, int jlh_uang) { //layanan3
-        if (acc_num_pengirim == acc_numorva_penerima) {
-            return "account pengirim tidak boleh sama dengan account penerima";
+        if (acc_num_pengirim == acc_numorva_penerima || acc_num_pengirim == db.getAccountNumberByVA(acc_numorva_penerima)) {
+            return "Account pengirim tidak boleh sama dengan account penerima";
         } else {
             if(db.isValidAccountNum(acc_num_pengirim)) {
                 if (db.isValidAccountNum(acc_numorva_penerima)) {
