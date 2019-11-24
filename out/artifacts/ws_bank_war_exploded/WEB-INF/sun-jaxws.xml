@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<endpoints xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime'
-           version='2.0'>
-    <endpoint name="bankpro" implementation="org.K03G04Tubes2.NasabahServiceImpl"  url-pattern="/services/bankpro" />
-</endpoints>
