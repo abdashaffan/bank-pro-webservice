@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class WSBankDB {
 //    private static final String PUBLIC_EC2_DNS = "ec2-52-23-241-205.compute-1.amazonaws.com";
     private static final String DB_URL = "jdbc:mysql://database-1.cmqcolum2oyw.us-east-1.rds.amazonaws.com/ws_bank?serverTimezone=UTC&useSSL=false";
-    private static final String DB_USER = "root";
-    private static final String DB_PASS = "";
+    private static final String DB_USER = "rootroot";
+    private static final String DB_PASS = "rootroot";
     private static Connection connection;
     private static PreparedStatement stmt;
 
