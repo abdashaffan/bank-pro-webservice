@@ -24,3 +24,12 @@ Web service menggunakan baisdata ws_bank dengan tiga tabel yaitu tabel nasabah, 
 
 
 
+### Untuk tugas DPPL IF3159
+1. Continous Integration :
+    a. Linting : 
+2. Eksplorasi EC2 : 
+3. Deployment ws-bank ke EC2: 
+4. Deployment basis data ws-bank ke Amazon RDS : 
+    
+
+
