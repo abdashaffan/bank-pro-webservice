@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class WSBankDB {
 //    private static final String PUBLIC_EC2_DNS = "ec2-52-23-241-205.compute-1.amazonaws.com";
-    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/ws_bank?serverTimezone=UTC";
+    private static final String DB_URL = "jdbc:mysql://database-1.cmqcolum2oyw.us-east-1.rds.amazonaws.com/ws_bank?serverTimezone=UTC&useSSL=false";
     private static final String DB_USER = "root";
     private static final String DB_PASS = "";
     private static Connection connection;
