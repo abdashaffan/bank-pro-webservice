@@ -58,3 +58,4 @@ Web service menggunakan baisdata ws_bank dengan tiga tabel yaitu tabel nasabah, 
 3. Deployment BankPro ke EC2: 13517021
 4. Continuous Deployment Pipeline: 13517021
 5. Deployment Database ke Amazon RDS: 13517096
+6. URL Deployment : ec2-52-90-76-43.compute-1.amazonaws.com/ws-bank-1.0/services/bankpro
