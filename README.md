@@ -24,12 +24,37 @@ Web service menggunakan baisdata ws_bank dengan tiga tabel yaitu tabel nasabah, 
 
 
 
-### Untuk tugas DPPL IF3159
-1. Continous Integration :
-    a. Linting : 
-2. Eksplorasi EC2 : 
-3. Deployment ws-bank ke EC2: 
-4. Deployment basis data ws-bank ke Amazon RDS : 
-    
+## Pembagian tugas WBD IF3110
+### REST
+1. Menambah transaksi baru : 13517096
+2. Mengubah status transaksi : 13517108
+3. Mengembalikan seluruh data transaksi : 13517021
+4. Skema database : 13517108
+
+### SOAP
+1. Validasi no rekening : 13517021
+2. Memberi data rekening nasabah : 13517096
+3. Transaksi transfer : 13517108
+4. Membuat virtual account : 13517021
+5. Mengecek data transaksi : 13517096
+
+### ReactJS
+1. Template bank-pro : 13517021
+2. Login : 13517021
+3. Transfer : 13517096
+4. Riwayat : 13517108
+
+### Perubahan Engima
+1. Pemgambilan data film ke home : 13517108
+2. Detail film dan search : 13517108
+3. Buy ticket : 13517021
+4. Transaction history : 13517096
+5. Transaksi tiket film : 13517021
 
 
+### Untuk tugas DPPL IF3159 Bagian WS-Bank
+1. Continous Integration : Linting dan Testing 13517021
+2. Eksplorasi EC2 : 13517021
+3. Deployment BankPro ke EC2: 13517021
+4. Continuous Deployment Pipeline: 13517021
+5. Deployment Database ke Amazon RDS: 13517096
