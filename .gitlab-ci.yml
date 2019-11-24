@@ -1,0 +1,55 @@
+stages:
+  - clone
+  - clean
+  - build
+  - test
+  - undeploy
+  - deploy
+
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+
+
+clone_repo:
+  stage: clone
+  script:
+    - pwd
+    - git clone git@gitlab.informatika.org:if3110-2019-02-k03-04/ws-bank.git
+
+
+clean:
+    stage: clean
+    script:
+        - pwd
+        - mvn clean
+
+build:
+  stage: build
+  script:
+    - pwd
+    - mvn package
+
+test:
+  stage: test
+  script:
+    - pwd
+    - mvn test
+
+stop_domain:
+  stage: undeploy
+  script:
+    - sudo /opt/glassfish5/glassfish/bin/asadmin stop-domain
+  allow_failure: true
+  only:
+    - dev
+    - master
+
+deploy:
+  stage: deploy
+  script:
+    - sudo mvn glassfish:deploy
+  only:
+    - dev
+    - master
