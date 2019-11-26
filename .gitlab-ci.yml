@@ -49,7 +49,7 @@ stop_domain:
 deploy:
   stage: deploy
   script:
-    - sudo mvn glassfish:deploy
+    - sudo mvn glassfish:redeploy
   only:
     - dev
     - master
