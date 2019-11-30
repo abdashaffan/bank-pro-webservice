@@ -61,4 +61,6 @@ Web service menggunakan baisdata ws_bank dengan tiga tabel yaitu tabel nasabah, 
 
 
 __Service WS-Bank dapat diakses melalui link berikut:__
-[http://ec2-52-90-76-43.compute-1.amazonaws.com:8080/ws-bank-1.0/services/bankpro](http://ec2-52-90-76-43.compute-1.amazonaws.com:8080/ws-bank-1.0/services/bankpro)
+~~[http://ec2-52-90-76-43.compute-1.amazonaws.com:8080/ws-bank-1.0/services/bankpro](http://ec2-52-90-76-43.compute-1.amazonaws.com:8080/ws-bank-1.0/services/bankpro)~~
+Link URL ganti karena instancenya ke restart <br/>
+Link deployment yang baru: [http://ec2-34-226-143-116.compute-1.amazonaws.com:8080/ws-bank-1.0/services/bankpro](http://ec2-34-226-143-116.compute-1.amazonaws.com:8080/ws-bank-1.0/services/bankpro)
